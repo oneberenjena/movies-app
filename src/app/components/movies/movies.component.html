@@ -1,0 +1,48 @@
+<div class="row">
+  <nav class="col-sm-12 navbar navbar-light bg-dark">
+    <form class="form-inline">
+      <label for="btngroup" style="color:white;">Sort By</label>
+      <div class="ml-2 text-center" name="btngroup">
+        <button class="btn btn-outline-warning my-2 my-sm-0 mr-2" 
+        name="title" type="submit" (click)="textInput='title'">Title</button>
+        <button class="btn btn-outline-warning my-2 my-sm-0 mr-2" 
+        name="director" type="submit" (click)="textInput='director'">Director</button>
+        <button class="btn btn-outline-warning my-2 my-sm-0 mr-2" 
+        name="year" type="submit" (click)="textInput='year'">Year</button>
+        <button class="btn btn-outline-warning my-2 my-sm-0 mr-2" 
+        name="genre" type="submit" (click)="textInput='genre'">Genre</button>
+      </div>
+    </form>
+    <form class="form-inline my-2 my-lg-0">
+      <input class="form-control mr-sm-2" type="text" name="filter" #filter 
+       (keyup)="o" [(ngModel)]="filterText" 
+        placeholder="Filter" aria-label="Search">
+    </form>
+  </nav>
+  <article class="col-sm-4 mt-2" *ngFor="let movie of _movieService.movies | sortBy: textInput | movieFilter: filter.value"  >
+    <div class="card bg-dark text-white">
+      <img *ngIf="movie.image" class="card-img-top" [src]="movie.image" alt="Card image cap">
+      <img *ngIf="!movie.image" src="http://placehold.it/300x250" class="card-img-top" alt="">
+      <div class="card-body">
+        <h2>
+          <i class="fa fa-film" aria-hidden="true"></i>
+          {{movie.title}}
+          <small class="text-muted">{{movie.year}}</small><br>
+          <h6>
+            <span class="badge badge-danger mr-2 mt-2" *ngFor="let genre of movie.genre">{{genre}}</span>
+          </h6>
+        </h2>
+        <h5>{{movie.director}}</h5>
+        <p class="text-muted">
+          <i class="fa fa-users" aria-hidden="true"></i> 
+          {{movie.cast}}
+        </p>
+        <p>{{movie.description }}</p>
+        <p>
+          <i class="fa fa-clock-o" aria-hidden="true"></i>
+          {{movie.duration}}
+        </p>
+      </div>
+    </div>
+  </article>
+</div>

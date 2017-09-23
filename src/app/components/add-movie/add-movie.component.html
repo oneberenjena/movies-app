@@ -1,0 +1,130 @@
+<div class="loading" *ngIf="_movieService.loading">
+  <i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
+  <span class="sr-only">Loading...</span>
+</div>
+<div class="row">
+  <article class="col-sm-6 mx-auto">
+    <h2 class="text-center">Add Movie</h2>
+    <form novalidate #movieForm = "ngForm">
+      <div class="form-group">
+        <input type="text"
+          class="form-control"
+          placeholder="Movie title"
+          name ="title"
+          #title = "ngModel"
+          [(ngModel)]="movie.title"
+          required>
+        <div *ngIf="title.touched  && !title.valid then required" class="top">
+        </div>
+      </div>
+      <div class="form-group">
+        <input type="text"
+            class="form-control"
+            placeholder="Movie director"
+            name ="director"
+            #director = "ngModel"
+            [(ngModel)]="movie.director"
+            required>
+          <div *ngIf="director.touched  && !director.valid then required" class="top">
+          </div>
+      </div>
+      <div class="row">
+        <div class="col form-group">
+          <input type="text"
+            class="form-control"
+            placeholder="Movie duration"
+            name ="duration"
+            #duration = "ngModel"
+            [(ngModel)]="movie.duration"
+            required>
+          <div *ngIf="duration.touched  && !duration.valid then required" class="top">
+          </div>
+        </div>
+        <div class="col form-group">
+          <input type="number"
+            class="form-control"
+            placeholder="Movie release year"
+            name ="year"
+            #year = "ngModel"
+            [(ngModel)]="movie.year"
+            required>
+          <div *ngIf="year.touched  && !year.valid then required" class="top">
+          </div>
+        </div>
+      </div>
+      <div class="form-group genre">
+        <input type="text"
+          class="form-control"
+          placeholder="Movie genre + press Enter"
+          name ="genre"
+          #genre = "ngModel"
+          [(ngModel)]="genress"
+          (click)="onClickGenre()"
+          (keyup.enter)="onEnter(genress)"
+          (blur)="onBlurGenre()"
+          (focus)="onClickGenre()"
+          required>
+      </div>
+      <div class="form-group">
+          <input type="text"
+            class="form-control"
+            placeholder="Movie cast/actors"
+            name ="cast"
+            #cast = "ngModel"
+            [(ngModel)]="movie.cast"
+            required>
+          <div *ngIf="cast.touched  && !cast.valid then required" class="top">
+          </div>
+      </div>
+      <div class="form-group">
+        <textarea name="description"
+          rows="5"
+          placeholder="Synopsis"
+          class="form-control"
+          #description = "ngModel"
+          [(ngModel)]="movie.description"
+          required></textarea>
+        <div *ngIf="description.touched  && !description.valid then required" class="top">
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="custom-file">
+          <input type="file" id="file" class="custom-file-input" 
+            name="image"
+            #image= "ngModel"
+            [(ngModel)]="movie.image">
+            <span class="custom-file-control"></span>
+        </label>
+      </div>
+      <button type="submit"
+        class="btn btn-outline-warning"
+        (click)="onSubmit()"
+        [disabled]="!movie.title || !movie.director || !movie.year || !movie.cast || !movie.description">Add Movie
+      </button>
+    </form>
+
+  </article>
+</div>
+<ng-template  #required>
+    <div class="alert alert-danger mt-2" role="alert">
+        Filling this field is required
+    </div>
+</ng-template>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title text-warning" id="exampleModalLabel">Success</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <h4 class="text-center text-warning">Movie correctly added</h4>
+        <br><br>
+      </div>
+    </div>
+  </div>
+</div>
